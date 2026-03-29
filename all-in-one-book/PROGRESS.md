@@ -5,7 +5,7 @@
 | # | 章节标题 | 文件名 | 核心覆盖 | 状态 |
 |---|---------|--------|---------|------|
 | 1 | 序言：先建立全局地图 | ch01-preface-system-map.md | 项目定位、读者路线图、架构全景图、核心概念词典、代码库地图、一次典型交互极简流程 | ✅ |
-| 2 | 从一次输入开始：主干执行链路总览 | ch02-main-flow-overview.md | CLI 入口、会话初始化、Agent 启动、状态机驱动主循环 | ⏳ |
+| 2 | 从一次输入开始：主干执行链路总览 | ch02-main-flow-overview.md | CLI 入口、会话初始化、Agent 启动、状态机驱动主循环 | ✅ |
 | 3 | 数据流全景：一次请求如何穿过整个系统 | ch03-dataflow-panorama.md | 典型场景完整数据流，逐步拆解数据形态变化，复杂节点打上“详见第 N 章” | ⏳ |
 | 4 | 状态机内核：Agent 为什么可控 | ch04-agent-state-machine.md | AgentState、AgentEvent、AgentAction、状态迁移与重试策略 | ⏳ |
 | 5 | 工具系统：模型能力如何落到真实操作 | ch05-tool-system.md | ToolDefinition、ToolRegistry、工具调用协议、执行结果回注会话 | ⏳ |
@@ -55,13 +55,13 @@
 ## 下次续写指引
 
 ### 从哪里继续
-从 **第 2 章 `ch02-main-flow-overview.md`** 开始，聚焦“主干执行链路总览”：把用户输入到一次完整输出的关键调用路径按函数级粒度展开。
+从 **第 3 章 `ch03-dataflow-panorama.md`** 开始，围绕“数据流全景”追踪一次请求在各节点间的数据形态变化。
 
 ### 交接备忘
-- 第 1 章已完成并新增：`all-in-one-book/ch01-preface-system-map.md`。  
-- 第 1 章采取“先全景后内部”的节奏，已给出全景图、词典、代码库地图、极简调用路径与质检报告。  
-- 已确认并引用当前主流程关键路径：`main` → `start_repl_session` → `run_repl` → `ProxyLlmClient::complete_streaming` → server `/proxy/*/stream`。  
-- 后续章节保持该表达密度，避免提前陷入目录导读式讲解。
+- 第 1 章已完成：`all-in-one-book/ch01-preface-system-map.md`。  
+- 第 2 章已完成并新增：`all-in-one-book/ch02-main-flow-overview.md`。  
+- 第 2 章已函数级展开默认 CLI 主链路：`main` → `start_repl_session` → `run_repl`，并覆盖流式 `LlmEvent`、工具回注、`ThreadStore::save` 收尾。  
+- 已标注 CLI provider 映射与 server `/proxy/*/stream` 路由集合的边界差异，供第 6 章继续深挖。
 
 ### 待验证项
 - Weaver 相关端到端调用链条细节（需在写到第 13 章前补足源码验证）。

@@ -16,8 +16,8 @@
 | 9 | Weaver：远程执行环境的 K8s 实现 | ch09-weaver-remote-execution.md | Pod 生命周期、Secret 注入、SPIFFE 身份、eBPF 审计 | 🔄 |
 | 10 | 可观测性套件：分析、崩溃、Cron、Session | ch10-observability-suite.md | PostHog 风格身份解析、崩溃符号化、健康检查 | ⏳ |
 | 11 | 认证与授权：OAuth、魔法链接、ABAC | ch11-auth-and-authz.md | 多 OAuth Provider、设备码流程、ABAC 策略、审计日志 | ⏳ |
-| 12 | 配置与 Secret 管理：分层配置、自动检测 | ch12-config-and-secrets.md | XDG 路径、环境变量优先级、Secret 包装类、Redact 系统 | ⏳ |
-| 13 | TUI 组件体系：Ratatui 视觉快照测试 | ch13-tui-system.md | 组件树、状态管理、测试基础设施、Storybook | ⏳ |
+| 12 | 配置与 Secret 管理：分层配置、自动检测 | ch12-config-and-secrets.md | XDG 路径、环境变量优先级、Secret 包装类、Redact 系统 | ✅ |
+| 13 | TUI 组件体系：Ratatui 视觉快照测试 | ch13-tui-system.md | 组件树、状态管理、测试基础设施、Storybook | 🔄 |
 | 14 | SCM 与 Git 集成：自托管 Git、镜像、Webhook | ch14-scm-and-git.md | 仓库托管、自动提交、分支保护、Clips (代码片段) | ⏳ |
 | 15 | 功能开关与实验：运行时切换、SSE 推送 | ch15-feature-flags.md | Flag、Experiment、Kill Switch、实时更新 | ⏳ |
 | 16 | 错误处理与重试：thiserror + 指数退避 | ch16-error-handling-and-retry.md | 错误类型层次、RetryConfig、RetryableError trait | ⏳ |

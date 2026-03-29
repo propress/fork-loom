@@ -8,8 +8,8 @@
 | 1 | Loom 是什么：从需求到架构选型 | ch01-what-is-loom.md | 问题域、设计目标、三大核心原则、技术选型理由 | ✅ |
 | 2 | 核心类型系统:对话的数据骨架 | ch02-core-types.md | Message、Role、ToolCall、LlmRequest/Response、状态机数据结构 | ✅ |
 | 3 | Agent 状态机：对话流程的心脏 | ch03-agent-state-machine.md | 状态枚举、事件驱动、转换表、IoC 设计 | ✅ |
-| 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | 🔄 |
-| 5 | 服务端 LLM 代理：为什么 API Key 不在客户端 | ch05-server-side-proxy.md | 安全架构、LlmService、多 Provider 并存、Anthropic OAuth 池化 | ⏳ |
+| 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | ✅ |
+| 5 | 服务端 LLM 代理：为什么 API Key 不在客户端 | ch05-server-side-proxy.md | 安全架构、LlmService、多 Provider 并存、Anthropic OAuth 池化 | 🔄 |
 | 6 | Tool 系统：AI 如何操作文件系统 | ch06-tool-system.md | Tool trait、ToolRegistry、路径安全、bash/edit_file/oracle | ⏳ |
 | 7 | 数据流全景：一次完整对话的端到端追踪 | ch07-end-to-end-data-flow.md | 用户输入 → LLM → Tool 执行 → PostToolsHook → 返回，数据每一跳的变化 | ⏳ |
 | 8 | Thread 持久化：对话如何保存和同步 | ch08-thread-persistence.md | UUID7 ID、本地存储、服务端同步、离线优先、版本冲突 | ⏳ |

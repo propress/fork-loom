@@ -9,7 +9,7 @@
 | 2 | 端到端追踪：典型对话一镜到底 | ch02-e2e-trace.md | 选择代表性对话场景，按时间线跟踪状态机、LLM 代理、工具执行、持久化与回传 | ✅ |
 | 3 | 核心引擎：Agent 状态机 | ch03-agent-state-machine.md | 状态与事件模型、转移表、动作决策、重试与错误恢复、与外层执行器的接口契约 | ✅ |
 | 4 | LLM 代理层与提供商适配 | ch04-llm-proxy-and-providers.md | 服务器端代理架构、SSE 流转、Provider 路由与可用性探测、密钥隔离与安全边界 | ✅ |
-| 5 | 工具系统与后置钩子 | ch05-tool-system.md | ToolRegistry 注册与查找、调用编排、并发执行、后置钩子（含自动提交入口） | ⏳ |
+| 5 | 工具系统与后置钩子 | ch05-tool-system.md | ToolRegistry 注册与查找、调用编排、并发执行、后置钩子（含自动提交入口） | ✅ |
 | 6 | 线程与会话持久化 | ch06-thread-and-storage.md | 线程数据模型、FTS 搜索、同步/恢复机制，与状态机的读写交界 | ⏳ |
 | 7 | Git 上下文与自动提交 | ch07-git-and-autocommit.md | Git 仓库探测、差异收集、提交生成、自动提交策略与回退路径 | ⏳ |
 | 8 | Weaver 远程执行与隧道 | ch08-weaver-remote-exec.md | Weaver 创建/生命周期、K8s 与 WireGuard/DERP 通道、密钥分发与审计 | ⏳ |
@@ -34,7 +34,7 @@
 
 ## 下次续写指引
 ### 从哪里继续
-- 开启第 5 章《工具系统与后置钩子》，聚焦 ToolRegistry 调度、并发执行、mutating 检测与 auto-commit 钩子。
+- 开启第 6 章《线程与会话持久化》，聚焦 LocalThreadStore / SyncingThreadStore、FTS 搜索与同步补偿机制。
 
 ### 交接备忘
 - 流程图必须基于源码验证后绘制；不确定的节点标注为 `[需源码验证]`，宁缺毋滥。

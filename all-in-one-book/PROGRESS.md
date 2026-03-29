@@ -6,7 +6,7 @@
 |---|---------|--------|---------|------|
 | 1 | 序言：先建立全局地图 | ch01-preface-system-map.md | 项目定位、读者路线图、架构全景图、核心概念词典、代码库地图、一次典型交互极简流程 | ✅ |
 | 2 | 从一次输入开始：主干执行链路总览 | ch02-main-flow-overview.md | CLI 入口、会话初始化、Agent 启动、状态机驱动主循环 | ✅ |
-| 3 | 数据流全景：一次请求如何穿过整个系统 | ch03-dataflow-panorama.md | 典型场景完整数据流，逐步拆解数据形态变化，复杂节点打上“详见第 N 章” | ⏳ |
+| 3 | 数据流全景：一次请求如何穿过整个系统 | ch03-dataflow-panorama.md | 典型场景完整数据流，逐步拆解数据形态变化，复杂节点打上“详见第 N 章” | ✅ |
 | 4 | 状态机内核：Agent 为什么可控 | ch04-agent-state-machine.md | AgentState、AgentEvent、AgentAction、状态迁移与重试策略 | ⏳ |
 | 5 | 工具系统：模型能力如何落到真实操作 | ch05-tool-system.md | ToolDefinition、ToolRegistry、工具调用协议、执行结果回注会话 | ⏳ |
 | 6 | LLM 代理层：为什么要 server-side proxy | ch06-llm-proxy.md | ProxyLlmClient → server proxy → provider，密钥边界与流式返回 | ⏳ |
@@ -55,13 +55,13 @@
 ## 下次续写指引
 
 ### 从哪里继续
-从 **第 3 章 `ch03-dataflow-panorama.md`** 开始，围绕“数据流全景”追踪一次请求在各节点间的数据形态变化。
+从 **第 4 章 `ch04-agent-state-machine.md`** 开始，解释状态机如何保障主流程可控、可恢复、可重试。
 
 ### 交接备忘
 - 第 1 章已完成：`all-in-one-book/ch01-preface-system-map.md`。  
-- 第 2 章已完成并新增：`all-in-one-book/ch02-main-flow-overview.md`。  
-- 第 2 章已函数级展开默认 CLI 主链路：`main` → `start_repl_session` → `run_repl`，并覆盖流式 `LlmEvent`、工具回注、`ThreadStore::save` 收尾。  
-- 已标注 CLI provider 映射与 server `/proxy/*/stream` 路由集合的边界差异，供第 6 章继续深挖。
+- 第 2 章已完成：`all-in-one-book/ch02-main-flow-overview.md`。  
+- 第 3 章已完成并新增：`all-in-one-book/ch03-dataflow-panorama.md`。  
+- 第 3 章已按边界追踪一轮数据形态：`String` → `Message` → `LlmRequest` → `SSE(LlmStreamEvent/LlmEvent)` → `ToolExecutionOutcome` → `Thread(JSON)`，并标注 `SyncingThreadStore::save` 的本地先行 + 远端异步同步语义。
 
 ### 待验证项
 - Weaver 相关端到端调用链条细节（需在写到第 13 章前补足源码验证）。

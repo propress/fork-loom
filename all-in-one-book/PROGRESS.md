@@ -20,8 +20,8 @@
 | 13 | TUI 组件体系：Ratatui 视觉快照测试 | ch13-tui-system.md | 组件树、状态管理、测试基础设施、Storybook | 🔄 |
 | 14 | SCM 与 Git 集成：自托管 Git、镜像、Webhook | ch14-scm-and-git.md | 仓库托管、自动提交、分支保护、Clips (代码片段) | ⏳ |
 | 15 | 功能开关与实验：运行时切换、SSE 推送 | ch15-feature-flags.md | Flag、Experiment、Kill Switch、实时更新 | ⏳ |
-| 16 | 错误处理与重试：thiserror + 指数退避 | ch16-error-handling-and-retry.md | 错误类型层次、RetryConfig、RetryableError trait | ⏳ |
-| 17 | HTTP 客户端标准化：User-Agent、重试策略 | ch17-http-client.md | loom-http 工具库、统一 User-Agent、超时配置 | ⏳ |
+| 16 | 错误处理与重试：thiserror + 指数退避 | ch16-error-handling-and-retry.md | 错误类型层次、RetryConfig、RetryableError trait | ✅ |
+| 17 | HTTP 客户端标准化：User-Agent、重试策略 | ch17-http-client.md | loom-http 工具库、统一 User-Agent、超时配置 | 🔄 |
 | 18 | 部署架构：NixOS 自动更新、Cargo2nix 构建 | ch18-deployment.md | 自动部署服务、健康检查、数据库迁移、版本管理 | ⏳ |
 | 19 | 测试策略：属性测试优先 | ch19-testing-strategy.md | Proptest、不变量文档化、集成测试、TUI 快照 | ⏳ |
 | 20 | 扩展实战：添加新 LLM Provider / Tool | ch20-extension-guide.md | 实战案例、Checklist、常见陷阱 | ⏳ |

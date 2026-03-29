@@ -9,7 +9,7 @@
 | 2 | 大脑：Agent 状态机 | ch02-state-machine.md | 7 个状态 / 6 类事件 / 7 种动作 / 控制反转设计 / 状态转移图 / 错误恢复 | ✅ |
 | 3 | 代理层：LLM 代理架构 | ch03-llm-proxy.md | 客户端 ProxyLlmClient / 服务器 LlmService / SSE 流式传输 / Anthropic OAuth 池 / 多提供商路由 | ✅ |
 | 4 | 手与脚：工具系统 | ch04-tool-system.md | Tool trait / ToolRegistry / 内置工具（ReadFile, EditFile, Bash, ListFiles, Oracle, WebSearch）/ 安全边界 | ✅ |
-| 5 | 记忆：Thread 与会话持久化 | ch05-thread-system.md | Thread 数据模型 / LocalThreadStore / SyncingThreadStore / 服务器端存储 / FTS5 搜索 | ⏳ |
+| 5 | 记忆：Thread 与会话持久化 | ch05-thread-system.md | Thread 数据模型 / LocalThreadStore / SyncingThreadStore / 服务器端存储 / FTS5 搜索 | ✅ |
 | 6 | 身份与权限：认证授权体系 | ch06-auth-system.md | OAuth PKCE / Magic Link / Device Code / API Key / Session / ABAC 策略引擎 / 审计日志 | ⏳ |
 | 7 | 远程织机：Weaver 远程执行环境 | ch07-weaver-system.md | K8s Pod 编排 / Provisioner / WireGuard 隧道 / eBPF 审计 / SPIFFE 身份 / 生命周期管理 | ⏳ |
 | 8 | 可观测性平台 | ch08-observability.md | Analytics（PostHog 风格）/ Crash Reporting（符号化 + 指纹）/ Feature Flags（多变体 + 实验 + 熔断）/ Sessions & Crons 监控 | ⏳ |
@@ -74,7 +74,7 @@
 
 ## 下次续写指引
 ### 从哪里继续
-从第 5 章（Thread 与会话持久化）开始写作。第 0-4 章已完成。
+从第 6 章（认证授权体系）开始写作。第 0-5 章已完成。
 
 ### 交接备忘
 - 项目仅有 2 个 commit（"Test deployment commit" 和 "Trigger rebuild"），演进史章节需要基于架构设计意图和 spec 文件来推演设计决策过程

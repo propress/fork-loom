@@ -7,7 +7,7 @@
 | 0 | 序言：Loom 全景地图 | ch00-preface.md | 项目定位 / 架构全景图 / 核心概念词典 / 代码库地图 / 一次典型交互全流程 | ✅ |
 | 1 | 数据流全景：一条消息的完整旅程 | ch01-data-flow.md | 用户输入 → CLI → 状态机 → LLM 代理 → 服务器 → LLM 提供商 → 工具执行 → 自动提交 → 响应展示 | ✅ |
 | 2 | 大脑：Agent 状态机 | ch02-state-machine.md | 7 个状态 / 6 类事件 / 7 种动作 / 控制反转设计 / 状态转移图 / 错误恢复 | ✅ |
-| 3 | 代理层：LLM 代理架构 | ch03-llm-proxy.md | 客户端 ProxyLlmClient / 服务器 LlmService / SSE 流式传输 / Anthropic OAuth 池 / 多提供商路由 | ⏳ |
+| 3 | 代理层：LLM 代理架构 | ch03-llm-proxy.md | 客户端 ProxyLlmClient / 服务器 LlmService / SSE 流式传输 / Anthropic OAuth 池 / 多提供商路由 | ✅ |
 | 4 | 手与脚：工具系统 | ch04-tool-system.md | Tool trait / ToolRegistry / 内置工具（ReadFile, EditFile, Bash, ListFiles, Oracle, WebSearch）/ 安全边界 | ⏳ |
 | 5 | 记忆：Thread 与会话持久化 | ch05-thread-system.md | Thread 数据模型 / LocalThreadStore / SyncingThreadStore / 服务器端存储 / FTS5 搜索 | ⏳ |
 | 6 | 身份与权限：认证授权体系 | ch06-auth-system.md | OAuth PKCE / Magic Link / Device Code / API Key / Session / ABAC 策略引擎 / 审计日志 | ⏳ |
@@ -74,7 +74,7 @@
 
 ## 下次续写指引
 ### 从哪里继续
-从第 3 章（LLM 代理架构）开始写作。第 0-2 章已完成。
+从第 4 章（工具系统）开始写作。第 0-3 章已完成。
 
 ### 交接备忘
 - 项目仅有 2 个 commit（"Test deployment commit" 和 "Trigger rebuild"），演进史章节需要基于架构设计意图和 spec 文件来推演设计决策过程

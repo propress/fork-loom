@@ -11,8 +11,8 @@
 | 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | ✅ |
 | 5 | 服务端 LLM 代理：为什么 API Key 不在客户端 | ch05-server-side-proxy.md | 安全架构、LlmService、多 Provider 并存、Anthropic OAuth 池化 | 🔄 |
 | 6 | Tool 系统：AI 如何操作文件系统 | ch06-tool-system.md | Tool trait、ToolRegistry、路径安全、bash/edit_file/oracle | ✅ |
-| 7 | 数据流全景：一次完整对话的端到端追踪 | ch07-end-to-end-data-flow.md | 用户输入 → LLM → Tool 执行 → PostToolsHook → 返回，数据每一跳的变化 | 🔄 |
-| 8 | Thread 持久化：对话如何保存和同步 | ch08-thread-persistence.md | UUID7 ID、本地存储、服务端同步、离线优先、版本冲突 | ⏳ |
+| 7 | 数据流全景：一次完整对话的端到端追踪 | ch07-end-to-end-data-flow.md | 用户输入 → LLM → Tool 执行 → PostToolsHook → 返回，数据每一跳的变化 | ✅ |
+| 8 | Thread 持久化：对话如何保存和同步 | ch08-thread-persistence.md | UUID7 ID、本地存储、服务端同步、离线优先、版本冲突 | 🔄 |
 | 9 | Weaver：远程执行环境的 K8s 实现 | ch09-weaver-remote-execution.md | Pod 生命周期、Secret 注入、SPIFFE 身份、eBPF 审计 | ⏳ |
 | 10 | 可观测性套件：分析、崩溃、Cron、Session | ch10-observability-suite.md | PostHog 风格身份解析、崩溃符号化、健康检查 | ⏳ |
 | 11 | 认证与授权：OAuth、魔法链接、ABAC | ch11-auth-and-authz.md | 多 OAuth Provider、设备码流程、ABAC 策略、审计日志 | ⏳ |

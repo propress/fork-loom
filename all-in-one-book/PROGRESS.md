@@ -7,8 +7,8 @@
 | 0 | 序言：Loom 全景地图 | ch00-preface.md | 项目定位、架构全景图、核心概念词典、代码库地图、典型交互流程 | ✅ |
 | 1 | Loom 是什么：从需求到架构选型 | ch01-what-is-loom.md | 问题域、设计目标、三大核心原则、技术选型理由 | ✅ |
 | 2 | 核心类型系统:对话的数据骨架 | ch02-core-types.md | Message、Role、ToolCall、LlmRequest/Response、状态机数据结构 | ✅ |
-| 3 | Agent 状态机：对话流程的心脏 | ch03-agent-state-machine.md | 状态枚举、事件驱动、转换表、IoC 设计 | 🔄 |
-| 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | ⏳ |
+| 3 | Agent 状态机：对话流程的心脏 | ch03-agent-state-machine.md | 状态枚举、事件驱动、转换表、IoC 设计 | ✅ |
+| 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | 🔄 |
 | 5 | 服务端 LLM 代理：为什么 API Key 不在客户端 | ch05-server-side-proxy.md | 安全架构、LlmService、多 Provider 并存、Anthropic OAuth 池化 | ⏳ |
 | 6 | Tool 系统：AI 如何操作文件系统 | ch06-tool-system.md | Tool trait、ToolRegistry、路径安全、bash/edit_file/oracle | ⏳ |
 | 7 | 数据流全景：一次完整对话的端到端追踪 | ch07-end-to-end-data-flow.md | 用户输入 → LLM → Tool 执行 → PostToolsHook → 返回，数据每一跳的变化 | ⏳ |
@@ -121,68 +121,57 @@ ch20 (扩展实战 — 验收：读者能否独立扩展系统)
 
 ### 从哪里继续
 
-开始写 **ch03-agent-state-machine.md (Agent 状态机：对话流程的心脏)**
+开始写 **ch04-llm-abstraction.md (LLM 抽象层：如何统一多个 AI 提供商)**
 
 ### 交接备忘
 
-#### 第3章必须包含的内容
+#### 第4章必须包含的内容
 
-1. **状态机设计哲学** — 为什么用显式状态机而非隐式
-   - 可测试性、可追踪性、无隐藏副作用
-   - 与其他 AI 助手的对比(如 Cursor/Copilot 的隐式状态)
-   - IoC(控制反转)设计的优势
+1. **LlmClient trait 设计** — 统一的 LLM 接口
+   - `complete()` 和 `complete_streaming()` 两个核心方法
+   - 为什么需要抽象层(支持多 Provider、可替换、可测试)
+   - trait 的设计权衡(async trait、泛型 vs trait object)
 
-2. **AgentState 枚举** — 所有可能的状态
-   - WaitingForUserInput、CallingLlm、ProcessingLlmResponse、ExecutingTools、PostToolsHook、Error、ShuttingDown
-   - 每个状态携带的数据(conversation、retries、executions 等)
-   - 为什么用判别联合类型而非单个结构体+标志位
+2. **LlmRequest 和 LlmResponse** — 标准化的请求/响应
+   - 如何映射到不同 Provider 的 API(Anthropic vs OpenAI 格式差异)
+   - 流式响应 vs 非流式响应的实现差异
+   - SSE(Server-Sent Events)协议解析
 
-3. **AgentEvent 枚举** — 驱动状态转换的事件
-   - UserInput、LlmEvent(TextDelta/ToolCallDelta/Completed/Error)、ToolCompleted、PostToolsHookCompleted、RetryTimeoutFired、ShutdownRequested
-   - 每个事件携带的数据
-   - 事件来源(用户、LLM、Tool、定时器)
+3. **LlmEvent 和 LlmStream** — 流式响应的事件模型
+   - TextDelta、ToolCallDelta、Completed、Error 四种事件
+   - 如何将 SSE 流解析为 LlmEvent
+   - 为什么用 Stream trait 而非 async iterator
 
-4. **状态转换表** — 完整的转换规则
-   - 用表格列出所有有效转换(当前状态 + 事件 → 新状态 + 动作)
-   - 重点转换流程的图示(如完整对话流程、Tool 执行流程、错误重试流程)
-   - 无效转换的处理(返回 WaitForInput)
+4. **错误处理** — LlmError 类型层次
+   - Http、Api、RateLimit、Timeout 等错误类型
+   - 哪些错误可重试(RetryableError trait)
+   - 错误传播和转换(From trait)
 
-5. **AgentAction 枚举** — 状态机返回给调用方的指令
-   - SendLlmRequest、ExecuteTools、RunPostToolsHook、WaitForInput、DisplayMessage、DisplayError、Shutdown
-   - 为什么返回 Action 而非直接执行(IoC、可测试性)
-   - 调用方如何执行 Action(agent.rs 的 handle_event 函数)
-
-6. **PostToolsHook 状态** — 工具执行后的钩子
-   - 为什么需要这个状态(auto-commit 等基础设施任务)
-   - 如何判断是否需要进入 PostToolsHook(has_mutating_tools 检查)
-   - 如何从 PostToolsHook 继续对话流(pending_llm_request)
-
-7. **重点流程追踪** — 端到端示例
-   - 用户输入 → LLM → Tool 执行 → PostToolsHook → LLM → 返回
-   - 每一步的状态转换、携带的数据、返回的 Action
-   - 用 Mermaid 状态图可视化
+5. **实现示例** — AnthropicLlmClient(或 OpenAiLlmClient)
+   - 如何将 LlmRequest 转换为 Anthropic API 请求
+   - 如何解析 Anthropic SSE 响应为 LlmEvent
+   - 请求/响应的完整数据流
 
 #### 写作时注意
 
-- 本章的目标是"**建立流程理解**"— 让读者理解状态如何驱动对话流程
-- 状态转换表是核心,必须完整且准确(参考 specs/state-machine.md)
-- 用具体例子说明每个状态和转换(不只是抽象描述)
-- 重点讲"为什么这样设计"(IoC、可测试性、无副作用)
-- 与 ch02 的类型系统衔接(状态携带 ConversationContext 和 ToolExecutionStatus)
+- 本章的目标是"**建立抽象层理解**"— 让读者理解如何通过 trait 统一多个 Provider
+- 重点讲"为什么需要抽象"和"如何设计抽象"(不只是 API 细节)
+- 用具体例子说明不同 Provider 的差异(Anthropic vs OpenAI 的 API 格式)
+- SSE 解析是难点,需要详细讲解(如何处理 `data: ` 前缀、事件拼接等)
+- 与 ch02/ch03 衔接(LlmRequest/LlmResponse 在状态机中的使用)
 
 #### 质检重点
 
-- [ ] 状态机设计哲学是否讲清楚了(为什么显式 vs 隐式)
-- [ ] 所有状态和事件是否都有清晰的语义解释
-- [ ] 状态转换表是否完整(覆盖所有有效转换)
-- [ ] 重点流程是否有端到端追踪示例
-- [ ] 代码片段是否不超过 5 处(状态/事件/动作枚举定义)
-- [ ] 是否用了图表辅助理解(状态图、转换表)
-- [ ] 是否与 ch02 衔接(引用 ConversationContext、ToolExecutionStatus)
+- [ ] LlmClient trait 设计是否讲清楚了(为什么这样抽象)
+- [ ] 不同 Provider 的 API 差异是否有具体例子
+- [ ] SSE 解析流程是否清晰(有示例数据和解析步骤)
+- [ ] 错误处理是否完整(错误类型、重试逻辑)
+- [ ] 代码片段是否不超过 5 处(trait 定义、请求/响应转换、SSE 解析示例)
+- [ ] 是否与 ch02/ch03 衔接(引用 LlmRequest/LlmResponse/LlmEvent)
 
 ### 待验证项
 
-- 查看 `specs/state-machine.md` 获取完整的状态转换表和设计文档
-- 查看 `crates/loom-common-core/src/state.rs` 获取 AgentState/AgentEvent 定义
-- 查看 `crates/loom-common-core/src/agent.rs` 获取 AgentAction 定义和 handle_event 实现
-- 查看 agent.rs 中的 has_mutating_tools 函数理解 PostToolsHook 触发逻辑
+- 查看 `specs/llm-client.md` 获取 LLM 抽象层设计文档
+- 查看 `crates/loom-common-core/src/llm.rs` 获取 LlmClient trait 和 LlmEvent 定义
+- 查看 `crates/loom-llm-anthropic/` 或 `crates/loom-llm-openai/` 获取具体实现示例
+- 查看 SSE 解析相关代码(可能在 anthropic/openai crate 中)

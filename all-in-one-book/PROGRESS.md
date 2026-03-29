@@ -5,8 +5,8 @@
 | # | 章节标题 | 文件名 | 核心覆盖 | 状态 |
 |---|---------|--------|---------|------|
 | 0 | 序言：Loom 全景地图 | ch00-preface.md | 项目定位、架构全景图、核心概念词典、代码库地图、典型交互流程 | ✅ |
-| 1 | Loom 是什么：从需求到架构选型 | ch01-what-is-loom.md | 问题域、设计目标、三大核心原则、技术选型理由 | 🔄 |
-| 2 | 核心类型系统：对话的数据骨架 | ch02-core-types.md | Message、Role、ToolCall、LlmRequest/Response、状态机数据结构 | ⏳ |
+| 1 | Loom 是什么：从需求到架构选型 | ch01-what-is-loom.md | 问题域、设计目标、三大核心原则、技术选型理由 | ✅ |
+| 2 | 核心类型系统:对话的数据骨架 | ch02-core-types.md | Message、Role、ToolCall、LlmRequest/Response、状态机数据结构 | 🔄 |
 | 3 | Agent 状态机：对话流程的心脏 | ch03-agent-state-machine.md | 状态枚举、事件驱动、转换表、IoC 设计 | ⏳ |
 | 4 | LLM 抽象层：如何统一多个 AI 提供商 | ch04-llm-abstraction.md | LlmClient trait、ProxyLlmClient、流式响应 SSE 解析 | ⏳ |
 | 5 | 服务端 LLM 代理：为什么 API Key 不在客户端 | ch05-server-side-proxy.md | 安全架构、LlmService、多 Provider 并存、Anthropic OAuth 池化 | ⏳ |
@@ -121,54 +121,58 @@ ch20 (扩展实战 — 验收：读者能否独立扩展系统)
 
 ### 从哪里继续
 
-开始写 **ch01-what-is-loom.md (Loom 是什么)**
+开始写 **ch02-core-types.md (核心类型系统：对话的数据骨架)**
 
 ### 交接备忘
 
-#### 第1章必须包含的内容
+#### 第2章必须包含的内容
 
-1. **问题域** — Loom 要解决什么问题
-   - 现有 AI 编程助手的局限（安全性、可扩展性、状态管理）
-   - Loom 的目标用户和使用场景（本地开发、团队协作、远程执行）
+1. **类型系统总览** — 对话数据的全景图
+   - Message、Role、ToolCall、LlmRequest/Response 在对话中的位置
+   - 为什么需要这些类型（类型安全、序列化、验证）
+   - 类型之间的依赖关系（用简单的依赖图说明）
 
-2. **设计目标** — Loom 的核心追求
-   - 安全优先：API Key 永不离开服务器，Secret 自动检测和 redact
-   - 可扩展性：模块化架构，易于添加新 Provider 和 Tool
-   - 可靠性：显式状态机、重试机制、结构化日志
+2. **Message 和 Role** — 对话的最小单元
+   - Message 结构（role、content、timestamp 等）
+   - Role 枚举（User/Assistant/System/Tool）及其语义
+   - 为什么用结构化的 Message 而非字符串（类型安全、多模态支持）
 
-3. **三大核心原则的深入解释**
-   - **模块化（Modularity）** — 核心抽象、Provider、Tool 完全解耦，为什么重要
-   - **可扩展性（Extensibility）** — Trait-based 设计，如何添加新功能
-   - **可靠性（Reliability）** — 错误处理、重试策略、可观测性
+3. **ToolCall 和 ToolResult** — AI 如何调用外部操作
+   - ToolCall 结构（id、name、arguments）
+   - ToolResult 结构（call_id、output）
+   - 为什么 id 和 call_id 必须匹配（LLM 协议要求）
 
-4. **技术选型理由**
-   - 为什么用 Rust（性能、内存安全、并发、错误处理）
-   - 为什么用服务端 LLM 代理（安全、凭证管理、审计）
-   - 为什么用显式状态机（可测试、可追踪、无隐藏副作用）
-   - 为什么用 K8s Weaver（隔离、弹性、多租户）
+4. **LlmRequest 和 LlmResponse** — LLM 交互的标准接口
+   - LlmRequest 结构（messages、tools、stream）
+   - LlmResponse 结构（content、tool_calls、usage）
+   - 流式响应 vs 非流式响应的数据差异
 
-5. **与类似项目的对比**
-   - vs Cursor — Loom 的服务端架构 vs Cursor 的客户端架构
-   - vs GitHub Copilot — Loom 的状态机 vs Copilot 的无状态建议
-   - vs Aider — Loom 的模块化 vs Aider 的单体设计
+5. **状态机使用的数据结构**
+   - ConversationContext（session_id、messages）
+   - ToolExecutionStatus（Pending/Running/Completed）
+   - 为什么状态机需要这些数据结构（状态转换时携带上下文）
 
 #### 写作时注意
 
-- 本章的目标是"**建立认同**"— 让读者理解为什么需要 Loom、为什么这样设计
-- 避免空洞的口号，每个设计目标都要举具体例子
-- 技术选型要讲"好处"和"代价"，不只讲优点
-- 对比其他项目时客观公正，指出差异而非批判
+- 本章的目标是"**建立数据骨架**"— 让读者理解对话数据的完整结构
+- 每个类型都要讲"为什么需要"和"如何使用"，不只是列字段
+- 用具体例子说明类型的值（如一条完整的 Message JSON）
+- 类型之间的关系用图表说明（如 Message 包含 ToolCall，ToolCall 对应 ToolResult）
+- 避免过早深入实现细节（如序列化格式），聚焦类型的语义
 
 #### 质检重点
 
-- [ ] 问题域是否讲清楚了（现有方案的痛点）
-- [ ] 设计目标是否有具体例子支撑（不只是列点）
-- [ ] 技术选型是否讲了"为什么"（不只是"用了什么"）
-- [ ] 是否避免了空洞的形容词（"强大"、"灵活"等）
-- [ ] 代码片段是否不超过 3 处
-- [ ] 过渡是否自然（从问题 → 目标 → 原则 → 选型 → 对比）
+- [ ] 类型总览是否提供了全景图（读者能理解所有类型的位置）
+- [ ] 每个类型是否讲了"为什么"（不只是"是什么"）
+- [ ] 是否有具体的值示例（JSON 或 Rust 初始化代码）
+- [ ] 类型之间的关系是否清晰（用图或文字说明）
+- [ ] 代码片段是否不超过 5 处（类型定义可适当放宽）
+- [ ] 是否避免了过早优化的讨论（如性能、序列化格式）
 
 ### 待验证项
 
-- 查看 README.md 中是否有项目定位的官方描述
-- 查看 CLAUDE.md 中的设计哲学
+- 查看 `crates/loom-common-core/src/message.rs` 获取 Message 和 Role 定义
+- 查看 `crates/loom-common-core/src/tool.rs` 获取 ToolCall 和 ToolResult 定义
+- 查看 `crates/loom-common-core/src/llm.rs` 获取 LlmRequest 和 LlmResponse 定义
+- 查看 `crates/loom-common-core/src/state.rs` 获取 ConversationContext 和 ToolExecutionStatus 定义
+- 查看 `specs/tool-system.md` 了解 Tool 系统的设计理念

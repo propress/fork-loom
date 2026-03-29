@@ -11,7 +11,7 @@
 | 4 | 手与脚：工具系统 | ch04-tool-system.md | Tool trait / ToolRegistry / 内置工具（ReadFile, EditFile, Bash, ListFiles, Oracle, WebSearch）/ 安全边界 | ✅ |
 | 5 | 记忆：Thread 与会话持久化 | ch05-thread-system.md | Thread 数据模型 / LocalThreadStore / SyncingThreadStore / 服务器端存储 / FTS5 搜索 | ✅ |
 | 6 | 身份与权限：认证授权体系 | ch06-auth-system.md | OAuth PKCE / Magic Link / Device Code / API Key / Session / ABAC 策略引擎 / 审计日志 | ✅ |
-| 7 | 远程织机：Weaver 远程执行环境 | ch07-weaver-system.md | K8s Pod 编排 / Provisioner / WireGuard 隧道 / eBPF 审计 / SPIFFE 身份 / 生命周期管理 | ⏳ |
+| 7 | 远程织机：Weaver 远程执行环境 | ch07-weaver-system.md | K8s Pod 编排 / Provisioner / WireGuard 隧道 / eBPF 审计 / SPIFFE 身份 / 生命周期管理 | ✅ |
 | 8 | 可观测性平台 | ch08-observability.md | Analytics（PostHog 风格）/ Crash Reporting（符号化 + 指纹）/ Feature Flags（多变体 + 实验 + 熔断）/ Sessions & Crons 监控 | ⏳ |
 | 9 | 界面层：TUI 与 Web 前端 | ch09-ui-layer.md | Ratatui 组件体系 / Svelte 5 Web 前端 / 实时通信（SSE/WebSocket）| ⏳ |
 | 10 | 支线系统：版本控制、搜索与集成 | ch10-auxiliary-systems.md | Spool（jj 版本控制）/ Auto-Commit / SCM 托管 / Clips / SCIM / WhatsApp / i18n | ⏳ |
@@ -74,7 +74,7 @@
 
 ## 下次续写指引
 ### 从哪里继续
-从第 7 章（Weaver 远程执行环境）开始写作。第 0-6 章已完成。
+从第 8 章（可观测性平台）开始写作。第 0-7 章已完成。
 
 ### 交接备忘
 - 项目仅有 2 个 commit（"Test deployment commit" 和 "Trigger rebuild"），演进史章节需要基于架构设计意图和 spec 文件来推演设计决策过程

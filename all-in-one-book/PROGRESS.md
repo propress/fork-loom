@@ -12,11 +12,11 @@
 | 5 | 记忆：Thread 与会话持久化 | ch05-thread-system.md | Thread 数据模型 / LocalThreadStore / SyncingThreadStore / 服务器端存储 / FTS5 搜索 | ✅ |
 | 6 | 身份与权限：认证授权体系 | ch06-auth-system.md | OAuth PKCE / Magic Link / Device Code / API Key / Session / ABAC 策略引擎 / 审计日志 | ✅ |
 | 7 | 远程织机：Weaver 远程执行环境 | ch07-weaver-system.md | K8s Pod 编排 / Provisioner / WireGuard 隧道 / eBPF 审计 / SPIFFE 身份 / 生命周期管理 | ✅ |
-| 8 | 可观测性平台 | ch08-observability.md | Analytics（PostHog 风格）/ Crash Reporting（符号化 + 指纹）/ Feature Flags（多变体 + 实验 + 熔断）/ Sessions & Crons 监控 | ⏳ |
-| 9 | 界面层：TUI 与 Web 前端 | ch09-ui-layer.md | Ratatui 组件体系 / Svelte 5 Web 前端 / 实时通信（SSE/WebSocket）| ⏳ |
-| 10 | 支线系统：版本控制、搜索与集成 | ch10-auxiliary-systems.md | Spool（jj 版本控制）/ Auto-Commit / SCM 托管 / Clips / SCIM / WhatsApp / i18n | ⏳ |
-| 11 | 项目演进史 | ch11-evolution.md | 从初始提交到当前架构的演进过程（注：项目仅 2 个 commit，以架构设计意图推演为主）| ⏳ |
-| 12 | 端到端追踪：三个关键场景 | ch12-e2e-trace.md | 场景1：首次登录并发起对话 / 场景2：工具调用与自动提交 / 场景3：创建远程 Weaver 并执行代码 | ⏳ |
+| 8 | 可观测性平台 | ch08-observability.md | Analytics（PostHog 风格）/ Crash Reporting（符号化 + 指纹）/ Feature Flags（多变体 + 实验 + 熔断）/ Sessions & Crons 监控 | ✅ |
+| 9 | 界面层：TUI 与 Web 前端 | ch09-ui-layer.md | Ratatui 组件体系 / Svelte 5 Web 前端 / 实时通信（SSE/WebSocket）| ✅ |
+| 10 | 支线系统：版本控制、搜索与集成 | ch10-auxiliary-systems.md | Spool（jj 版本控制）/ Auto-Commit / SCM 托管 / Clips / SCIM / WhatsApp / i18n | ✅ |
+| 11 | 项目演进史 | ch11-evolution.md | 从初始提交到当前架构的演进过程（注：项目仅 2 个 commit，以架构设计意图推演为主）| ✅ |
+| 12 | 端到端追踪：三个关键场景 | ch12-e2e-trace.md | 场景1：首次登录并发起对话 / 场景2：工具调用与自动提交 / 场景3：创建远程 Weaver 并执行代码 | ✅ |
 
 ## 章节规划说明
 
@@ -74,16 +74,16 @@
 
 ## 下次续写指引
 ### 从哪里继续
-从第 8 章（可观测性平台）开始写作。第 0-7 章已完成。
+全部 13 章已完成。无需续写。
 
 ### 交接备忘
-- 项目仅有 2 个 commit（"Test deployment commit" 和 "Trigger rebuild"），演进史章节需要基于架构设计意图和 spec 文件来推演设计决策过程
-- 代码库约 80+ 个 crate，50+ 个 spec 文件，结构完整但许多功能可能尚在开发中
-- 核心数据流：CLI → ProxyLlmClient → Server LlmProxy Route → LlmService → AnthropicClient → Claude API → SSE Stream 回传
-- 状态机采用控制反转：状态机返回 Action，调用者执行 I/O
+- 全书已完成，涵盖序言 + 12 章正文
+- 核心章节（0-4）深度最高，覆盖了状态机、LLM 代理、工具系统的完整细节
+- 后续章节（5-12）覆盖了认证、Weaver、可观测性、UI、支线系统、演进史和端到端追踪
+- 项目仅有 2 个 commit，演进史基于 migration 编号和 spec 文件推断
 
 ### 待验证项
-- [ ] AnthropicPool 的具体 round-robin + failover 算法细节
+- [x] AnthropicPool 的具体 round-robin + failover 算法细节（已在第 3 章详细描述）
 - [ ] TUI storybook 的 visual snapshot testing 实际实现情况
 - [ ] Spool 系统与 jj 的具体集成方式（是 CLI wrapper 还是 library binding）
 - [ ] WebSocket 升级（phase3）的实际实现状态
